@@ -20,6 +20,16 @@ class NonExitingParser(argparse.ArgumentParser):
     of the original `ArgumentParser` class from the `argparse` module.
     """
 
+    def parse_args(self, args=None, namespace=None) -> argparse.Namespace:
+        args, argv = self.parse_known_args(args, namespace)
+        if argv:
+            if len(argv) > 1:
+                msg = "unrecognized arguments: {}"
+            else:
+                msg = "unrecognized argument: {}"
+            self.error(msg.format(" ".join(argv)))
+        return args
+
     def exit(self, status: int = 0, message: str = None) -> None:
         raise RuntimeError("The parser for \"{}\" tried to exit".format(self.prog))
 
