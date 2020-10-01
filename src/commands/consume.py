@@ -6,11 +6,14 @@ from args import parseArgs, ARG_INT
 def getAmountHelper(msg, name) -> int:
 	args = parseArgs(msg, [ARG_INT], [False], "/{} [amount]".format(name))
 	if isinstance(args[0], int):
-		if args[0] <= 0:
-			msg.reply_text("Amount must be a positive integer")
+		if args[0] == 0:
+			msg.reply_text("You can't consume zero {}s".format(name))
+			return 0
+		elif args[0] < 0:
+			msg.reply_text("You can't consume a negative number of {}s".format(name))
 			return 0
 		elif args[0] > 10:
-			msg.reply_text("Amount max. is 10!")
+			msg.reply_text("You can't consume more than 10 {}s at once!".format(name))
 			return 0
 		return args[0]
 	elif not args[0]:
