@@ -3,7 +3,7 @@ import random
 from args import parseArgs, ARG_INT
 
 
-def get_amount_helper(msg, name) -> int:
+def getAmountHelper(msg, name) -> int:
 	args = parseArgs(msg, [ARG_INT], [False], "/{} [amount]".format(name))
 	if isinstance(args[0], int):
 		if args[0] <= 0:
@@ -21,7 +21,7 @@ def get_amount_helper(msg, name) -> int:
 
 
 def drink(bot, update):
-	num = get_amount_helper(update.message, "drink")
+	num = getAmountHelper(update.message, "drink")
 	if num > 0:
 		user = getOrCreateUser(update.message.from_user)
 		createTransaction(user, -100 * num, "drink x{}".format(num))
@@ -38,7 +38,7 @@ hydrationMessages = [
 
 
 def water(bot, update):
-	num = get_amount_helper(update.message, "water")
+	num = getAmountHelper(update.message, "water")
 	if num > 0:
 		user = getOrCreateUser(update.message.from_user)
 		createTransaction(user, -50 * num, "water x{}".format(num))
@@ -47,7 +47,7 @@ def water(bot, update):
 
 
 def pizza(bot, update):
-	num = get_amount_helper(update.message, "pizza")
+	num = getAmountHelper(update.message, "pizza")
 	if num > 0:
 		user = getOrCreateUser(update.message.from_user)
 		createTransaction(user, -200 * num, "pizza x{}".format(num))
@@ -55,7 +55,7 @@ def pizza(bot, update):
 
 
 def ice(bot, update):
-	num = get_amount_helper(update.message, "ice")
+	num = getAmountHelper(update.message, "ice")
 	if num > 0:
 		user = getOrCreateUser(update.message.from_user)
 		createTransaction(user, -50 * num, "ice x{}".format(num))
