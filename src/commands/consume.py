@@ -4,7 +4,7 @@ from args import parseArgs, ARG_INT
 
 
 def getAmountHelper(msg, name) -> int:
-	args = parseArgs(msg, [ARG_INT], [False], "/{} [amount]".format(name))
+	args = parseArgs(msg, [ARG_INT], [1], "/{} [amount]".format(name))
 	if isinstance(args[0], int):
 		if args[0] == 0:
 			msg.reply_text("You can't consume zero {}s".format(name))
@@ -16,8 +16,6 @@ def getAmountHelper(msg, name) -> int:
 			msg.reply_text("You can't consume more than 10 {}s at once!".format(name))
 			return 0
 		return args[0]
-	elif not args[0]:
-		return 1
 	else:
 		msg.reply_text("Unknown parsing error")
 		return 0
